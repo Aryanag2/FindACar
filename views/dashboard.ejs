@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>User Dashboard</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <h1>User Dashboard</h1>
+      <div class="user-greeting">
+        <p>Hi, <%= username %>!</p>
+      </div>
+    </header>
+    <nav class="navigation">
+      <div class="nav-card"><a href="/wishlist">Create Wishlist</a></div>
+      <div class="nav-card"><a href="/reviews">Find Reviews For Cars</a></div>
+      <div class="nav-card"><a href="/your-reviews">Submit a Review</a></div>
+      <div class="nav-card"><a href="/runsql">Recommendations</a></div>
+      <div class="nav-card"><a href="/search-for-cars">Search Cars For Sale</a></div>
+      <div class="nav-card"><a href="/cars-for-you">Cars for YOU</a></div>
+      <div class="nav-card"><a href="/logout">Logout</a></div>
+    </nav>
+  </div>
+  <script src="scripts.js"></script>
+</body>
+</html>

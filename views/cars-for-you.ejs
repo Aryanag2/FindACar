@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Cars For You</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container mt-4">
+        <h1>Cars For You</h1>
+        <% if (items && items.length > 0) { %>
+            <table>
+                <thead>
+                    <tr>
+                        <th>VIN</th>
+                        <th>Brand Name</th>
+                        <th>Model</th>
+                        <th>Year</th>
+                        <th>Seller Name</th>
+                        <th>Type</th>
+                        <th>Exterior Color</th>
+                        <th>Interior Color</th>
+                        <th>Drivetrain</th>
+                        <th>City MPG</th>
+                        <th>Highway MPG</th>
+                        <th>Engine</th>
+                        <th>Transmission</th>
+                        <th>Mileage</th>
+                        <th>Price</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% items.forEach(function(item) { %>
+                        <tr>
+                            <td><%= item.VIN %></td>
+                            <td><%= item.BrandName %></td>
+                            <td><%= item.Model %></td>
+                            <td><%= item.Year %></td>
+                            <td><%= item.SellerName %></td>
+                            <td><%= item.Type %></td>
+                            <td><%= item.ExteriorColor %></td>
+                            <td><%= item.InteriorColor %></td>
+                            <td><%= item.Drivetrain %></td>
+                            <td><%= item.CityMPG %></td>
+                            <td><%= item.HighwayMPG %></td>
+                            <td><%= item.Engine %></td>
+                            <td><%= item.Transmission %></td>
+                            <td><%= item.Mileage %></td>
+                            <td><%= item.Price %></td>
+                            <td><button onclick="purchaseCar('<%= item.VIN %>')">Purchase</button></td>
+                        </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+        <% } else { %>
+            <p><%= message %></p>
+        <% } %>        
+    </div>
+    <script>   
+        function purchaseCar(VIN) {
+            // print to console for debugging
+            console.log('Purchasing car with VIN:', VIN);
+            fetch('/purchase-car', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ VIN : VIN })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if(data.success) {
+                    alert('Purchase successful!');
+                    // Optionally, redirect or remove the purchased car from the table
+                    window.location.reload(); // Simple reload can reflect the change
+                } else {
+                    alert('Purchase failed: ' + data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error purchasing car');
+            });
+        }
+    </script>
+    <script src="/js/scripts.js"></script>
+</body>
+</html>

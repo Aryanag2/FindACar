@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find Cars</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container mt-4">
+        <h1>Car to Search</h1>
+        <!-- Form to search for cars -->
+        <form action="/fetch-search" method="post">
+            <div class="form-group">
+                <label for="BrandName">Brand Name:</label>
+                <input type="text" id="BrandName" name="BrandName" required>
+            </div>
+            <div class="form-group">
+                <label for="Model">Model:</label>
+                <input type="text" id="Model" name="Model">
+            </div>
+            <div class="form-group">
+                <label for="Year">Year:</label>
+                <input type="number" id="Year" name="Year" min="1900" max="2099">
+            </div>
+            <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+    </div>
+
+    <div class="container mt-4">
+        <h1>Search Results</h1>
+        <% if (results && results.length > 0) { %>
+            <table style="border-collapse: collapse; border: 1px solid #ddd;">
+                <thead>
+                    <tr>
+                        <th>VIN</th>
+                        <th>Brand Name</th>
+                        <th>Model</th>
+                        <th>Year</th>
+                        <th>Seller Name</th>
+                        <th>Type</th>
+                        <th>Exterior Color</th>
+                        <th>Interior Color</th>
+                        <th>Drivetrain</th>
+                        <th>City MPG</th>
+                        <th>Highway MPG</th>
+                        <th>Transmission</th>
+                        <th>Engine</th>
+                        <th>Mileage</th>
+                        <th>Price</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% results.forEach(function(row) { %>
+                        <tr>
+                            <td><%= row.VIN %></td>
+                            <td><%= row.BrandName %></td>
+                            <td><%= row.Model %></td>
+                            <td><%= row.Year %></td>
+                            <td><%= row.SellerName %></td>
+                            <td><%= row.Type %></td>
+                            <td><%= row.ExteriorColor %></td>
+                            <td><%= row.InteriorColor %></td>
+                            <td><%= row.Drivetrain %></td>
+                            <td><%= row.CityMPG %></td>
+                            <td><%= row.HighwayMPG %></td>
+                            <td><%= row.Transmission %></td>
+                            <td><%= row.Engine %></td>
+                            <td><%= row.Mileage %></td>
+                            <td><%= row.Price %></td>
+                            <td>
+                                <button onclick="purchaseCar('<%= row.VIN %>')">Purchase</button>
+                            </td>
+                        </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+        <% } else { %>
+            <p>Car Not Found</p>
+        <% } %>
+    </div>
+
+    <script>
+        function purchaseCar(VIN) {
+            console.log('Purchasing car with VIN:', VIN);
+            fetch('/purchase-car', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ VIN : VIN })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if(data.success) {
+                    alert('Purchase successful!');
+                    window.location.reload();
+                } else {
+                    alert('Purchase failed: ' + data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error purchasing car');
+            });
+        }
+    </script>
+
+    <script src="/js/scripts.js"></script>
+</body>
+</html>

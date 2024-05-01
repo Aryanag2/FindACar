@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Find Reviews</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container mt-4">
+        <h1>Find Car Reviews</h1>
+        <!-- Form to search for reviews -->
+        <form action="/fetch-reviews" method="post">
+            <div class="form-group">
+                <label for="BrandName">Brand Name:</label>
+                <input type="text" id="BrandName" name="BrandName" required>
+            </div>
+            <div class="form-group">
+                <label for="Model">Model:</label>
+                <input type="text" id="Model" name="Model" required>
+            </div>
+            <div class="form-group">
+                <label for="Year">Year:</label>
+                <input type="number" id="Year" name="Year" required min="1900" max="2099">
+            </div>
+            <button type="submit" class="btn btn-primary">Search Reviews</button>
+        </form>
+
+        <!-- Displaying fetched reviews -->
+        <% if (typeof reviews !== 'undefined' && reviews.length > 0) { %>
+            <div class="reviews-list">
+                <% reviews.forEach(function(review) { %>
+                    <div class="review-item">
+                        <h3>Review by <%= review.username %></h3>
+                        <p><%= review.Review %></p>
+                        <p>Seller Name: <%= review.SellerName ? review.SellerName : 'NULL' %></p>
+                      </div>
+                <% }); %>
+            </div>
+        <% } else { %>
+            <p>No reviews found for this car.</p>
+        <% } %>
+    </div>
+    <script src="/js/scripts.js"></script>
+</body>
+</html>

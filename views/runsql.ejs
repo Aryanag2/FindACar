@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recommendations</title>
+</head>
+<body>
+    <h1>Recommendations:</h1>
+    <button onclick="runSqlPriceMPG()">Brands with the best MPG: </button>
+    <button onclick="runSqlCheapBrandRating()">Best Budget Brands: </button>
+    <button onclick="runSqlYrsHighMPG()"> Best Used Year to Buy w/ MPG</button>
+    <button onclick="runSqlStatelist()">Fun Fact: States With Most Targeted Vehicles for Traffic Stops</button>
+    <div id="result"></div>
+
+    <script>
+        function runSqlPriceMPG() {
+            fetch('/executesqlPriceMPG')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById("result").innerHTML = data;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+    </script>
+    <script>
+        function runSqlStatelist() {
+            fetch('/executesqlStatelist')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById("result").innerHTML = data;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+    </script>
+    <script>
+        function runSqlCheapBrandRating() {
+            fetch('/executesqlCheapBrandRating')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById("result").innerHTML = data;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+    </script>
+    <script>
+        function runSqlYrsHighMPG() {
+            fetch('/executesqlYrsHighMPG')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById("result").innerHTML = data;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+    </script>
+
+</body>
+</html>

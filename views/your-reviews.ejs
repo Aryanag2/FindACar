@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Your Reviews</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container mt-4">
+        <h1>Submit and View Your Reviews</h1>
+        
+        <!-- Form to submit a new review -->
+        <form action="/submit-review" method="post">
+            <div class="form-group">
+                <label for="BrandName">Brand Name:</label>
+                <input type="text" id="BrandName" name="BrandName" required>
+            </div>
+            <div class="form-group">
+                <label for="Model">Model:</label>
+                <input type="text" id="Model" name="Model" required>
+            </div>
+            <div class="form-group">
+                <label for="Year">Year:</label>
+                <input type="number" id="Year" name="Year" required min="1900" max="2099">
+            </div>
+            <div class="form-group">
+                <label for="SellerName">Seller Name:</label>
+                <input type="text" id="SellerName" name="SellerName">
+            </div>
+            <div class="form-group">
+                <label for="ReviewText">Review:</label>
+                <textarea id="ReviewText" name="reviewText" required placeholder="Write your review here..."></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit Review</button>
+        </form>
+
+        <!-- Section to display user's reviews -->
+        <h2>Your Reviews</h2>
+        <% if (reviews && reviews.length) { %>
+            <% reviews.forEach(function(review) { %>
+                <div class="review-item">
+                    <h3><%= review.BrandName %> <%= review.Model %> (<%= review.Year %>)</h3>
+                    <p>Review: <%= review.Review %></p>
+                    <% if (review.SellerName) { %>
+                        <p>Seller: <%= review.SellerName %></p>
+                    <% } else { %>
+                        <p>Seller: None</p>
+                    <% } %>
+                </div>
+            <% }); %>
+        <% } else { %>
+            <p>You have not submitted any reviews yet.</p>
+        <% } %>
+    </div>
+    <script src="/js/scripts.js"></script>
+</body>
+</html>
