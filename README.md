@@ -1,4 +1,4 @@
-My Car Finding website, powered by a robust backend architecture utilizing Express.js and MySQL, provides a seamless user experience for exploring, reviewing, and managing your favorite vehicles.
+A Car Marketplace, powered by a robust backend architecture utilizing Express.js and MySQL, provides a seamless user experience for exploring, reviewing, and managing your favorite vehicles.
 
 Home Page: Start here to access all our features. Log in or sign up to manage your profile and begin exploring.
 User Management: This includes registration, login, and profile management. User data is secured through encrypted sessions and cookies, ensuring privacy and security.
